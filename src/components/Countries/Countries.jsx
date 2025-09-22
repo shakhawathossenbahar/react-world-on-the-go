@@ -4,15 +4,24 @@ import "./Countries.css"
 
 export default function Countries({countriesPromise}) {
    
-
    const [visitedCountries, setVisitedCountries] = useState([])
    
-
    const handleVisitedCountries = (country) =>{
       console.log("handle visited countries clicked", country);
       const newVisitedCountries = [...visitedCountries, country];
       setVisitedCountries(newVisitedCountries);
    }
+
+
+
+   const [addedName, setAddedName] = useState([]);
+
+   const handleAddedName = (name) => {
+      console.log(name);
+      const newAddedName = [...addedName, name];
+      setAddedName(newAddedName);
+   }
+
 
 
    const countriesData = use(countriesPromise);
@@ -21,10 +30,19 @@ export default function Countries({countriesPromise}) {
 
    return(
       <div>
+
          <div className="headline">
             <h1>Total countries: {countries.length}</h1>
             <h1>Countries Visited: {visitedCountries.length}</h1>
          </div>
+
+
+         <div>
+            {
+               addedName.map(name => <li>{name}</li>)
+            }
+         </div>
+
 
          <div className="countries">
          {
@@ -32,9 +50,11 @@ export default function Countries({countriesPromise}) {
                key={country.cca3.cca3}
                country={country}
                handleVisitedCountries = {handleVisitedCountries}
+               handleAddedName = {handleAddedName}
                ></Country>)
          }
          </div>
+         
       </div>
    )
 }
